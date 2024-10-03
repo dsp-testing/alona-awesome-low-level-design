@@ -41,11 +41,13 @@ public class Level {
         return false;
     }
 
-    public synchronized boolean unparkVehicle(Vehicle vehicle) {
+    public boolean unparkVehicle(Vehicle vehicle) {
         for (ParkingSpot spot : parkingSpots) {
-            if (!spot.isAvailable() && spot.getParkedVehicle().equals(vehicle)) {
-                spot.unparkVehicle();
-                return true;
+            synchronized (spot) {
+                if (!spot.isAvailable() && spot.getParkedVehicle().equals(vehicle)) {
+                    spot.unparkVehicle();
+                    return true;
+                }
             }
         }
         return false;
