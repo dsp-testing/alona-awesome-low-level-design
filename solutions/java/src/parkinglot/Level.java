@@ -38,6 +38,8 @@ public class Level {
                     spot.parkVehicle(vehicle);
                     return true;
                 }
+                    return true;
+                }
             }
         }
         return false;
