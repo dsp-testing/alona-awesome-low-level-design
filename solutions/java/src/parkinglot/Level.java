@@ -31,11 +31,15 @@ public class Level {
         }
     }
 
-    public synchronized boolean parkVehicle(Vehicle vehicle) {
+    public boolean parkVehicle(Vehicle vehicle) {
         for (ParkingSpot spot : parkingSpots) {
-            if (spot.isAvailable() && spot.getVehicleType() == vehicle.getType()) {
-                spot.parkVehicle(vehicle);
-                return true;
+            synchronized (spot) {
+                if (spot.isAvailable() && spot.getVehicleType() == vehicle.getType()) {
+                    spot.parkVehicle(vehicle);
+                    return true;
+                }
+                    return true;
+                }
             }
         }
         return false;
